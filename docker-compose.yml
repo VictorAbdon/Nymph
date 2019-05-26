@@ -1,0 +1,17 @@
+version: '3'
+
+services:
+  db:
+    image: postgres
+  web:
+    build: .
+    # Runs on port 8000 inside the docker image
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/code
+    ports:
+      # Exposes the internal port 8000 to the main machine
+      # internal-port:external-port
+      - "8000:8000"
+    depends_on:
+      - db
